@@ -10,29 +10,40 @@ from PIL import Image
 # Load Data
 # the masked images are stored as png, unmasked (original) as jpg
 # the names of these 2 are same so for getting the right sample we can just sort the 2 lists
-def LoadData (path1, path2):
+def LoadData(path1, path2):
     """
     Looks for relevant filenames in the shared path
     Returns 2 lists for original and masked files respectively
-    
     """
     # Read the images folder like a list
     image_dataset = os.listdir(path1)
+
+    # Filter out hidden files (those starting with a period)
+    image_dataset = [file for file in image_dataset if not file.startswith('.')]
+    image_dataset = [file for file in image_dataset if not file.endswith('.mat')]
+
     mask_dataset = os.listdir(path2)
+
+    # Filter out hidden files in the annotations folder as well
+    mask_dataset = [file for file in mask_dataset if not file.startswith('.')]
+    mask_dataset = [file for file in mask_dataset if not file.endswith('.mat')]
 
     # Make a list for images and masks filenames
     orig_img = []
     mask_img = []
+
     for file in image_dataset:
         orig_img.append(file)
+
     for file in mask_dataset:
         mask_img.append(file)
 
-    # Sort the lists to get both of them in same order (the dataset has exactly the same name for images and corresponding masks)
+    # Sort the lists to get both of them in the same order (the dataset has exactly the same name for images and corresponding masks)
     orig_img.sort()
     mask_img.sort()
-    
+
     return orig_img, mask_img
+
 
 
 # Pre-Process Data
