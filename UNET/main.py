@@ -7,11 +7,29 @@ from .train import *
 
 if __name__ == "__main__":
 
+    # Define the URL and file names
+    dataset_url = "http://www.robots.ox.ac.uk/~vgg/data/pets/data/images.tar.gz"
+    annotations_url = "http://www.robots.ox.ac.uk/~vgg/data/pets/data/annotations.tar.gz"
+    dataset_filename = "images.tar.gz"
+    annotations_filename = "annotations.tar.gz"
+
+    # Define the download and extraction directory
+    download_dir = "/content/"
+    extracted_dir = "/content/"
+    # Download and extract the dataset and annotations
+    download_and_extract(dataset_url, download_dir, dataset_filename, extracted_dir)
+    download_and_extract(annotations_url, download_dir, annotations_filename, extracted_dir)
+
+    # Define the paths to the images and masks directories
+    images_dir = os.path.join(extracted_dir, "images/images")
+    masks_dir = os.path.join(extracted_dir, "annotations/annotations/trimaps")
+
+
     # Load and View Data
     """ Load Train Set and view some examples """
     # Call the apt function
-    path1 = '/content/drive/My Drive/U-NET - Implementation/images/original/'
-    path2 = '/content/drive/My Drive/U-NET - Implementation/images/masks/'
+    path1 = images_dir
+    path2 = masks_dir
     img, mask = LoadData (path1, path2)
 
     show_sample_images(path1, path2, img, mask, show_images = 1)
@@ -28,12 +46,14 @@ if __name__ == "__main__":
     print("X Shape:", X.shape)
     print("Y shape:", y.shape)
     # There are 3 classes : background, pet, outline 
-    rint(np.unique(y))
 
     show_processed_image(X, y, image_index = 0)
-
+    
+    unet = UNetCompiled(input_size=(128, 128, 3), n_filters=32, n_classes=3, use_max_pooling=False, 
+                        use_transpose_conv=False, use_strided_conv=True, use_upsampling=True, use_dice_loss=True, use_bce=False)
+    
     # Train the model
-    results, unet, X_train, X_valid, y_train, y_valid = unet_train(UNetCompiled, X, y)
+    results, unet, X_train, X_valid, y_train, y_valid = unet_train(unet, X, y)
 
     # Evaluate Model Results
     model_metrics(results)

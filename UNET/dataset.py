@@ -1,9 +1,21 @@
 # for data load
 import os
 import numpy as np # for using np arrays
+import urllib.request
+import tarfile
 
 # for reading and processing images
 from PIL import Image
+
+
+# Function to download and extract the dataset
+def download_and_extract(url, download_dir, filename, extract_dir):
+    # Download the file
+    urllib.request.urlretrieve(url, os.path.join(download_dir, filename))
+    
+    # Extract the tar.gz file
+    with tarfile.open(os.path.join(download_dir, filename), "r:gz") as tar:
+        tar.extractall(extract_dir)
 
 
 # Helper Functions for Data Processing
@@ -61,9 +73,13 @@ def PreprocessData(img, mask, target_shape_img, target_shape_mask, path1, path2)
     # Define X and Y as number of images along with shape of one image
     X = np.zeros((m,i_h,i_w,i_c), dtype=np.float32)
     y = np.zeros((m,m_h,m_w,m_c), dtype=np.int32)
+    total_images = len(img)
+    count=0
     
     # Resize images and masks
     for file in img:
+        print(f"\rProcessing image {count + 1} out of {total_images} images", end='', flush=True)
+        count = count + 1
         # convert image into an array of desired shape (3 channels)
         index = img.index(file)
         path = os.path.join(path1, file)
@@ -81,5 +97,6 @@ def PreprocessData(img, mask, target_shape_img, target_shape_mask, path1, path2)
         single_mask = np.reshape(single_mask,(m_h,m_w,m_c)) 
         single_mask = single_mask - 1 # to ensure classes #s start from 0
         y[index] = single_mask
+    print()
     return X, y
 
