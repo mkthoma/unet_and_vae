@@ -10,20 +10,12 @@ from tensorflow.keras.layers import Input, Conv2D, MaxPooling2D, Dropout, BatchN
 from tensorflow.keras.metrics import MeanIoU
 
 
-# Function for Dice loss
-def dice_loss(pred, target):
-    smooth = 1e-5
-    
-    # flatten predictions and targets
-    pred = pred.view(-1)
-    target = target.view(-1)
-    
-    intersection = (pred * target).sum()
-    union = pred.sum() + target.sum()
-    
-    dice = (2. * intersection + smooth) / (union + smooth)
-    
-    return 1 - dice  
+def dice_loss(y_true, y_pred):
+  y_true = tf.cast(y_true, tf.float32)
+  y_pred = tf.cast(y_pred, tf.float32)
+  numerator = 2 * tf.reduce_sum(y_true * y_pred, axis=(1, 2, 3))
+  denominator = tf.reduce_sum(y_true + y_pred, axis=(1, 2, 3))
+  return 1 - numerator / (denominator + tf.keras.backend.epsilon())
 
 # Constructing the U-Net Architecture
 # U-Net Encoder Block
