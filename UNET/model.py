@@ -114,13 +114,6 @@ def UNetCompiled(input_size=(128, 128, 3), n_filters=32, n_classes=3, use_max_po
                    padding='same',
                    kernel_initializer='he_normal')(ublock9)
 
-    # if n_classes == 1:
-    #     activation = 'sigmoid'
-    # else:
-    #     activation = 'softmax'
-    
-    # conv10 = Conv2D(n_classes, 1, activation=activation, padding='same')(conv9)
-
     conv10 = Conv2D(n_classes, 1, padding='same')(conv9)
     model = tf.keras.Model(inputs=inputs, outputs=conv10)
 
