@@ -15,7 +15,7 @@ def dice_loss(y_true, y_pred):
   y_pred = tf.cast(y_pred, tf.float32)
   numerator = 2 * tf.reduce_sum(y_true * y_pred, axis=(1, 2, 3))
   denominator = tf.reduce_sum(y_true + y_pred, axis=(1, 2, 3))
-  return 1 - numerator / (denominator + tf.keras.backend.epsilon())
+  return 1 - ((numerator + tf.keras.backend.epsilon()) / (denominator + tf.keras.backend.epsilon()))
 
 # Constructing the U-Net Architecture
 # U-Net Encoder Block
