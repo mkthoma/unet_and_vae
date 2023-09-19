@@ -121,7 +121,7 @@ def UNetCompiled(input_size=(128, 128, 3), n_filters=32, n_classes=3, use_max_po
     
     # conv10 = Conv2D(n_classes, 1, activation=activation, padding='same')(conv9)
 
-    conv10 = Conv2D(n_classes, 1, spadding='same')(conv9)
+    conv10 = Conv2D(n_classes, 1, padding='same')(conv9)
     model = tf.keras.Model(inputs=inputs, outputs=conv10)
 
     if use_dice_loss:
