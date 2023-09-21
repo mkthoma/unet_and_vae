@@ -9,24 +9,12 @@ from tensorflow.keras.losses import binary_crossentropy, SparseCategoricalCrosse
 from tensorflow.keras.layers import Input, Conv2D, MaxPooling2D, Dropout, BatchNormalization, Conv2DTranspose, UpSampling2D, concatenate
 from tensorflow.keras.metrics import MeanIoU
 
-# def dice_loss(y_true, y_pred):
-#   y_true = tf.cast(y_true, tf.float32)
-#   y_pred = tf.cast(y_pred, tf.float32)
-#   numerator = 2 * tf.reduce_sum(y_true * y_pred, axis=(1, 2, 3))
-#   denominator = tf.reduce_sum(y_true + y_pred, axis=(1, 2, 3))
-#   return 1 - ((numerator + tf.keras.backend.epsilon()) / (denominator + tf.keras.backend.epsilon()))
-
-def dice_loss(target, pred, n_classes=3):
-  smooth = 0.001
-  pred = F.softmax(pred,dim=1).float().flatten(0,1) # (96,128,128)-> 3 * 32
-  target = F.one_hot(target, n_classes).squeeze(1).permute(0, 3, 1, 2).float().flatten(0,1) # (96,128,128) -> 3 * 32
-  assert pred.size() == pred.size(), "sizes do not match"
-  intersection = 2 * (pred * target).sum(dim=(-1, -2)) # 96
-  union = pred.sum(dim=(-1, -2)) + target.sum(dim=(-1, -2)) #96
-
-  dice = (intersection + smooth) / ( union + smooth)
-
-  return 1 - dice.mean()
+def dice_loss(y_true, y_pred):
+  y_true = tf.cast(y_true, tf.float32)
+  y_pred = tf.cast(y_pred, tf.float32)
+  numerator = 2 * tf.reduce_sum(y_true * y_pred, axis=(1, 2, 3))
+  denominator = tf.reduce_sum(y_true + y_pred, axis=(1, 2, 3))
+  return 1 - ((numerator + tf.keras.backend.epsilon()) / (denominator + tf.keras.backend.epsilon()))
 
 # Constructing the U-Net Architecture
 # U-Net Encoder Block
