@@ -43,82 +43,91 @@ Here's a detailed description of the UNet architecture:
 By incorporating these components into the UNet architecture, you can achieve a more flexible and powerful model that is capable of handling various image segmentation tasks with improved accuracy and precision. Experimenting with different combinations of these components and loss functions can help tailor UNet to specific applications, making it a versatile choice for a wide range of computer vision tasks.
 
 ## Results
-1.  Max Pooling +Transpose Conv + Binary Cross-Entropy
 
-    ![image](https://github.com/mkthoma/unet_and_vae/assets/135134412/de7a38e0-65d2-4eaa-820b-120eaf68b95f)
+### Max Pooling +Transpose Conv + Binary Cross-Entropy
 
-    ```
-    Epoch 15/20
-    185/185 [==============================] - 41s 221ms/step - loss: 0.0706 - accuracy: 0.7080 - val_loss: 0.0344 - val_accuracy: 0.7588
-    Epoch 16/20
-    185/185 [==============================] - 41s 222ms/step - loss: 0.0849 - accuracy: 0.7115 - val_loss: 0.1003 - val_accuracy: 0.7085
-    Epoch 17/20
-    185/185 [==============================] - 41s 221ms/step - loss: 0.1483 - accuracy: 0.7049 - val_loss: 0.1484 - val_accuracy: 0.7085
-    Epoch 18/20
-    185/185 [==============================] - 41s 221ms/step - loss: 0.0918 - accuracy: 0.7050 - val_loss: 0.1106 - val_accuracy: 0.7085
-    Epoch 19/20
-    185/185 [==============================] - 41s 221ms/step - loss: 0.0571 - accuracy: 0.7052 - val_loss: -0.0357 - val_accuracy: 0.7093
-    Epoch 20/20
-    185/185 [==============================] - 41s 221ms/step - loss: 0.0728 - accuracy: 0.7054 - val_loss: 0.1357 - val_accuracy: 0.7085
+![image](https://github.com/mkthoma/unet_and_vae/assets/135134412/af9ace93-1b49-4127-b088-1a1039829736)
 
-    ```
+```
+Epoch 15/20
+185/185 [==============================] - 13s 72ms/step - loss: 0.2302 - accuracy: 0.9126 - val_loss: 0.3247 - val_accuracy: 0.8878
+Epoch 16/20
+185/185 [==============================] - 13s 72ms/step - loss: 0.2252 - accuracy: 0.9143 - val_loss: 0.3217 - val_accuracy: 0.8817
+Epoch 17/20
+185/185 [==============================] - 13s 72ms/step - loss: 0.2202 - accuracy: 0.9165 - val_loss: 0.3075 - val_accuracy: 0.8896
+Epoch 18/20
+185/185 [==============================] - 13s 72ms/step - loss: 0.2124 - accuracy: 0.9193 - val_loss: 0.3120 - val_accuracy: 0.8884
+Epoch 19/20
+185/185 [==============================] - 13s 72ms/step - loss: 0.2032 - accuracy: 0.9224 - val_loss: 0.3136 - val_accuracy: 0.8870
+Epoch 20/20
+185/185 [==============================] - 13s 72ms/step - loss: 0.2140 - accuracy: 0.9187 - val_loss: 0.3213 - val_accuracy: 0.8838
+```
+Sample Prediction:
+![image](https://github.com/mkthoma/unet_and_vae/assets/135134412/bd066a27-571b-423f-b080-21a045a45c97)
 
-2. Max Pooling + Transpose Conv + Dice Loss
 
-    ![image](https://github.com/mkthoma/unet_and_vae/assets/135134412/a164a92d-4af6-4c65-bf97-ce3a8c3b6c76)
+### Max Pooling + Transpose Conv + Dice Loss
 
-    ```
-    Epoch 15/20
-    185/185 [==============================] - 40s 219ms/step - loss: 1.0412 - accuracy: 0.0112 - val_loss: 1.0634 - val_accuracy: 0.0000e+00
-    Epoch 16/20
-    185/185 [==============================] - 40s 219ms/step - loss: 1.0375 - accuracy: 0.0000e+00 - val_loss: 0.9851 - val_accuracy: 0.0000e+00
-    Epoch 17/20
-    185/185 [==============================] - 40s 218ms/step - loss: 0.9014 - accuracy: 4.6272e-05 - val_loss: 0.8231 - val_accuracy: 1.3417e-04
-    Epoch 18/20
-    185/185 [==============================] - 40s 219ms/step - loss: 0.6964 - accuracy: 0.0190 - val_loss: 0.4729 - val_accuracy: 0.1957
-    Epoch 19/20
-    185/185 [==============================] - 40s 218ms/step - loss: 0.6331 - accuracy: 0.1607 - val_loss: 0.7076 - val_accuracy: 0.0000e+00
-    Epoch 20/20
-    185/185 [==============================] - 40s 218ms/step - loss: 0.4898 - accuracy: 0.0786 - val_loss: 0.3791 - val_accuracy: 0.2911
-    47/47 [==============================] - 3s 54ms/step - loss: 0.3791 - accuracy: 0.2911
-    ```
+![image](https://github.com/mkthoma/unet_and_vae/assets/135134412/bc3a43ca-2089-4002-9bd7-342ff9918931)
 
-3. Strided Convolution + Transpose Conv + Binary Cross Entropy
+```
+Epoch 15/20
+185/185 [==============================] - 13s 71ms/step - loss: 0.1719 - accuracy: 0.8892 - val_loss: 0.1936 - val_accuracy: 0.8692
+Epoch 16/20
+185/185 [==============================] - 13s 71ms/step - loss: 0.1711 - accuracy: 0.8897 - val_loss: 0.1977 - val_accuracy: 0.8672
+Epoch 17/20
+185/185 [==============================] - 13s 71ms/step - loss: 0.1676 - accuracy: 0.8924 - val_loss: 0.1851 - val_accuracy: 0.8782
+Epoch 18/20
+185/185 [==============================] - 13s 71ms/step - loss: 0.1609 - accuracy: 0.8981 - val_loss: 0.1811 - val_accuracy: 0.8806
+Epoch 19/20
+185/185 [==============================] - 13s 71ms/step - loss: 0.1618 - accuracy: 0.8972 - val_loss: 0.1788 - val_accuracy: 0.8836
+Epoch 20/20
+185/185 [==============================] - 13s 71ms/step - loss: 0.1559 - accuracy: 0.9018 - val_loss: 0.1734 - val_accuracy: 0.8871
+```
+Sample prediction:
+![image](https://github.com/mkthoma/unet_and_vae/assets/135134412/26f803cd-7859-4b5a-92f5-52f868f168b6)
 
-    ![image](https://github.com/mkthoma/unet_and_vae/assets/135134412/7c225c2b-fba1-44ef-a5c4-734cc31567e0)
+### Strided Convolution + Transpose Conv + Binary Cross Entropy
+![image](https://github.com/mkthoma/unet_and_vae/assets/135134412/5c9b8f15-1f8c-4bc1-a279-e8fcd7203827)
 
-    ```
-    Epoch 15/20
-    185/185 [==============================] - 45s 242ms/step - loss: 0.1459 - accuracy: 0.7050 - val_loss: 0.1329 - val_accuracy: 0.7085
-    Epoch 16/20
-    185/185 [==============================] - 45s 243ms/step - loss: 0.1500 - accuracy: 0.7050 - val_loss: 0.1217 - val_accuracy: 0.7085
-    Epoch 17/20
-    185/185 [==============================] - 45s 242ms/step - loss: 0.4901 - accuracy: 0.7050 - val_loss: 1.8421 - val_accuracy: 0.7085
-    Epoch 18/20
-    185/185 [==============================] - 44s 237ms/step - loss: 1.8591 - accuracy: 0.7050 - val_loss: 1.8421 - val_accuracy: 0.7085
-    Epoch 19/20
-    185/185 [==============================] - 44s 237ms/step - loss: 1.8591 - accuracy: 0.7050 - val_loss: 1.8421 - val_accuracy: 0.7085
-    Epoch 20/20
-    185/185 [==============================] - 44s 237ms/step - loss: 1.8591 - accuracy: 0.7050 - val_loss: 1.8421 - val_accuracy: 0.7085
-    47/47 [==============================] - 3s 58ms/step - loss: 1.8421 - accuracy: 0.7085
-    ```
+```
+Epoch 15/20
+185/185 [==============================] - 14s 78ms/step - loss: 0.2582 - accuracy: 0.9024 - val_loss: 0.3331 - val_accuracy: 0.8783
+Epoch 16/20
+185/185 [==============================] - 14s 78ms/step - loss: 0.2364 - accuracy: 0.9102 - val_loss: 0.3467 - val_accuracy: 0.8802
+Epoch 17/20
+185/185 [==============================] - 14s 78ms/step - loss: 0.2301 - accuracy: 0.9127 - val_loss: 0.3507 - val_accuracy: 0.8762
+Epoch 18/20
+185/185 [==============================] - 14s 78ms/step - loss: 0.2245 - accuracy: 0.9147 - val_loss: 0.3381 - val_accuracy: 0.8819
+Epoch 19/20
+185/185 [==============================] - 14s 78ms/step - loss: 0.2109 - accuracy: 0.9195 - val_loss: 0.3219 - val_accuracy: 0.8857
+Epoch 20/20
+185/185 [==============================] - 14s 78ms/step - loss: 0.2129 - accuracy: 0.9190 - val_loss: 0.3423 - val_accuracy: 0.8850
+```
+Sample Prediction:
+![image](https://github.com/mkthoma/unet_and_vae/assets/135134412/07340570-f487-416c-a90d-1af75c7e6e16)
 
-4. Strided Conv + Upssampling + Dice Loss
+### Strided Conv + Up Sampling + Dice Loss
 
-    ![image](https://github.com/mkthoma/unet_and_vae/assets/135134412/812b6e36-e8aa-445f-9481-ad822f9793a0)
+![image](https://github.com/mkthoma/unet_and_vae/assets/135134412/f7e8b89b-5aee-43c6-8f04-fd4b02bc211b)
 
-    ```
-    Epoch 15/20
-    185/185 [==============================] - 47s 256ms/step - loss: 0.6225 - accuracy: 0.7010 - val_loss: 0.5762 - val_accuracy: 0.7085
-    Epoch 16/20
-    185/185 [==============================] - 47s 256ms/step - loss: 0.4653 - accuracy: 0.3957 - val_loss: 0.3393 - val_accuracy: 0.2915
-    Epoch 17/20
-    185/185 [==============================] - 47s 256ms/step - loss: 0.9046 - accuracy: 0.2084 - val_loss: 0.2231 - val_accuracy: 0.6910
-    Epoch 18/20
-    185/185 [==============================] - 47s 255ms/step - loss: 0.6308 - accuracy: 0.7048 - val_loss: 0.9364 - val_accuracy: 0.7085
-    Epoch 19/20
-    185/185 [==============================] - 47s 256ms/step - loss: 0.7978 - accuracy: 0.7050 - val_loss: 0.6767 - val_accuracy: 0.7085
-    Epoch 20/20
-    185/185 [==============================] - 47s 256ms/step - loss: 0.4227 - accuracy: 0.5234 - val_loss: -1.1383 - val_accuracy: 0.0000e+00
-    47/47 [==============================] - 3s 59ms/step - loss: -1.1383 - accuracy: 0.0000e+00
-    ```
+```
+Epoch 15/20
+185/185 [==============================] - 15s 81ms/step - loss: 0.7523 - accuracy: 0.5919 - val_loss: 0.7509 - val_accuracy: 0.5972
+Epoch 16/20
+185/185 [==============================] - 15s 81ms/step - loss: 0.7523 - accuracy: 0.5919 - val_loss: 0.7509 - val_accuracy: 0.5972
+Epoch 17/20
+185/185 [==============================] - 15s 81ms/step - loss: 0.7523 - accuracy: 0.5919 - val_loss: 0.7509 - val_accuracy: 0.5972
+Epoch 18/20
+185/185 [==============================] - 15s 81ms/step - loss: 0.7523 - accuracy: 0.5919 - val_loss: 0.7509 - val_accuracy: 0.5972
+Epoch 19/20
+185/185 [==============================] - 15s 81ms/step - loss: 0.7523 - accuracy: 0.5919 - val_loss: 0.7509 - val_accuracy: 0.5972
+Epoch 20/20
+185/185 [==============================] - 15s 81ms/step - loss: 0.7523 - accuracy: 0.5919 - val_loss: 0.7509 - val_accuracy: 0.5972
+```
+Sample Prediction:
+![image](https://github.com/mkthoma/unet_and_vae/assets/135134412/cf33d6c1-1938-456d-b916-e75393a64fea)
+
+## Conclusions
+From the above logs we can see that the first three strategies worked really well for us and the last one did not meet expectations. The Max Pooling +Transpose Conv + Binary Cross-Entropy strategy seems to have the highest accuracy and comparing the sample prediction it seems to have a slight edge over the Max Pooling + Transpose Conv + Dice Loss and Strided Convolution + Transpose Conv + Binary Cross Entropy strategies. 
+ 

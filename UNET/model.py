@@ -5,7 +5,7 @@ from tensorflow.keras.layers import Conv2D
 from tensorflow.keras.layers import BatchNormalization
 from tensorflow.keras.layers import Conv2DTranspose
 from tensorflow.keras.layers import concatenate
-from tensorflow.keras.losses import binary_crossentropy, SparseCategoricalCrossentropy
+from tensorflow.keras.losses import binary_crossentropy, categorical_crossentropy  
 from tensorflow.keras.layers import Input, Conv2D, MaxPooling2D, Dropout, BatchNormalization, Conv2DTranspose, UpSampling2D, concatenate
 from tensorflow.keras.metrics import MeanIoU
 
@@ -34,6 +34,21 @@ def dice_loss(y_true, y_pred, n_classes=3):
 
     # Step 6: Return 1 minus the mean Dice coefficient
     return 1 - K.mean(dice)
+
+def binary_cross_entropy_loss(y_true, y_pred, n_classes=3):
+    # Step 1: Convert prediction to softmax probabilities
+    y_pred = tf.nn.softmax(y_pred, axis=-1)
+
+    # Step 2: Convert target to one-hot format
+    y_true = tf.one_hot(tf.cast(y_true, tf.int32), depth=n_classes)
+
+    # Flatten both prediction and target tensors
+    y_pred = tf.cast(tf.reshape(y_pred, [-1, n_classes]), tf.float32)
+    y_true = tf.cast(tf.reshape(y_true, [-1, n_classes]), tf.float32)
+
+    # Compute binary cross-entropy loss
+    loss = categorical_crossentropy  (y_true, y_pred)
+    return loss
 
 
 # def dice_loss(y_true, y_pred):
@@ -146,9 +161,7 @@ def UNetCompiled(input_size=(128, 128, 3), n_filters=32, n_classes=3, use_max_po
     if use_dice_loss:
         loss = dice_loss
     elif use_bce:
-        loss = binary_crossentropy 
-    else:
-        loss = SparseCategoricalCrossentropy
+        loss = binary_cross_entropy_loss 
     
     
     print("Model Summary:")
