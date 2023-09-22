@@ -9,12 +9,39 @@ from tensorflow.keras.losses import binary_crossentropy, SparseCategoricalCrosse
 from tensorflow.keras.layers import Input, Conv2D, MaxPooling2D, Dropout, BatchNormalization, Conv2DTranspose, UpSampling2D, concatenate
 from tensorflow.keras.metrics import MeanIoU
 
-def dice_loss(y_true, y_pred):
-  y_true = tf.cast(y_true, tf.float32)
-  y_pred = tf.cast(y_pred, tf.float32)
-  numerator = 2 * tf.reduce_sum(y_true * y_pred, axis=(1, 2, 3))
-  denominator = tf.reduce_sum(y_true + y_pred, axis=(1, 2, 3))
-  return 1 - ((numerator + tf.keras.backend.epsilon()) / (denominator + tf.keras.backend.epsilon()))
+import tensorflow as tf
+import tensorflow.keras.backend as K
+
+def dice_loss(y_true, y_pred, n_classes=3):
+    smooth = 0.001
+
+    # Step 1: Convert prediction to softmax probabilities
+    y_pred = tf.nn.softmax(y_pred, axis=-1)
+
+    # Step 2: Convert target to one-hot format
+    y_true = tf.one_hot(tf.cast(y_true, tf.int32), depth=n_classes)
+
+    # Flatten both prediction and target tensors
+    y_pred = tf.cast(tf.reshape(y_pred, [-1, n_classes]), tf.float32)
+    y_true = tf.cast(tf.reshape(y_true, [-1, n_classes]), tf.float32)
+
+    # Step 4: Calculate intersection and union
+    intersection = 2 * tf.reduce_sum(y_true * y_pred, axis=0)
+    union = tf.reduce_sum(y_true, axis=0) + tf.reduce_sum(y_pred, axis=0)
+
+    # Step 5: Compute Dice coefficient for each class
+    dice = (intersection + smooth) / (union + smooth)
+
+    # Step 6: Return 1 minus the mean Dice coefficient
+    return 1 - K.mean(dice)
+
+
+# def dice_loss(y_true, y_pred):
+#   y_true = tf.cast(y_true, tf.float32)
+#   y_pred = tf.cast(y_pred, tf.float32)
+#   numerator = 2 * tf.reduce_sum(y_true * y_pred, axis=(1, 2, 3))
+#   denominator = tf.reduce_sum(y_true + y_pred, axis=(1, 2, 3))
+#   return 1 - ((numerator + tf.keras.backend.epsilon()) / (denominator + tf.keras.backend.epsilon()))
 
 # Constructing the U-Net Architecture
 # U-Net Encoder Block
