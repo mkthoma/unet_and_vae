@@ -18,10 +18,10 @@ For both the notebooks, we have tried testing the model's prediction on correctl
 
 ### MNIST
 #### Correctly labelled data
-![image](https://github.com/mkthoma/unet_and_vae/assets/135134412/43c903a9-d5ab-4264-8a09-82ff9d646308)
+![image](https://github.com/mkthoma/unet_and_vae/assets/135134412/b8cf9a75-74a2-47b1-a49b-002063205f20)
 
 #### Incorrectly labelled data
-![image](https://github.com/mkthoma/unet_and_vae/assets/135134412/c5735996-f211-4764-ba08-ac66c36f1c6c)
+![image](https://github.com/mkthoma/unet_and_vae/assets/135134412/5b5172ac-5ab8-43bb-a162-bdac02c536a1)
 
 ### CIFAR10
 #### Correctly labelled data
