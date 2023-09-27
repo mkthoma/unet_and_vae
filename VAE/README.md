@@ -25,7 +25,7 @@ For both the notebooks, we have tried testing the model's prediction on correctl
 
 ### CIFAR10
 #### Correctly labelled data
-![image](https://github.com/mkthoma/unet_and_vae/assets/135134412/8b45e0ce-49fd-4ce9-bffb-a4d62c44fe19)
+![image](https://github.com/mkthoma/unet_and_vae/assets/135134412/c80b0135-be5d-40e0-a9d0-dccc3569a319)
 
 #### Incorrectly labelled data
-![image](https://github.com/mkthoma/unet_and_vae/assets/135134412/73208cda-578e-4d10-bcec-67bbbe2e68c2)
+![image](https://github.com/mkthoma/unet_and_vae/assets/135134412/446e8ca9-90ab-4567-a09a-da12d5a4645b)
